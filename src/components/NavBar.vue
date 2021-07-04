@@ -17,27 +17,33 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
 
-            </ul>
-          </li>
+          <!--region User-->
+          <div v-for="client in clients" v-bind:key="client.client_name_short">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user fa-2x" style="margin-right: 20px"></i>
+                {{ client.client_name_full }}
+              </a>
+            </li>
+            <!--region Organization-->
+            <div v-for="org in client.org_list"
+                 v-bind:key="org.organization_name_short">
+              <a class="d-block" style="margin-left: 30px; padding: 10px">
+                {{org.organization_name_full}}
+              </a>
+              <div style="padding: 10px 30px; display: flex; justify-content: space-around">
+                <a href="#">
+                  <i class="fa fa-cog fa-2x"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-file fa-2x"></i>
+                </a></div>
+            </div>
+          </div>
+          <!--endregion-->
         </ul>
+        <!--endregion-->
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -46,8 +52,27 @@
 </template>
 
 <script>
+
+import Vue from 'vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
+Vue.use(VueAxios, axios);
+
 export default {
-  name: "NavBar"
+  name: "NavBar",
+  data() {
+    return {clients: undefined}
+  },
+  mounted() {
+    Vue.axios.post('https://uids-a.tutlab.pw/uids/api/v1.0/get_client_org_list_by_user', {
+      api_user_id: this.$store.state.api_user_id,
+      api_key: this.$store.state.api_key,
+      ui_user_id: this.$store.state.ui_user_id,
+    }).then((resp) => {
+      this.clients = resp.data.data;
+    })
+  }
 }
 </script>
 
