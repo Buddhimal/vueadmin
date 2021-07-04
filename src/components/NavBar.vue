@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     getClients() {
-      Vue.axios.post('https://uids-a.tutlab.pw/uids/api/v1.0/get_client_org_list_by_user', {
+      Vue.axios.post(process.env.VUE_APP_API_BASE_URL+'get_client_org_list_by_user', {
         api_user_id: this.$store.state.api_user_id,
         api_key: this.$store.state.api_key,
         ui_user_id: this.$store.state.ui_user_id,
@@ -82,6 +82,10 @@ export default {
   },
   mounted() {
     this.getClients();
+    this.$root.$on('updateClient', () => {
+      // your code goes here
+      this.getClients();
+    })
   }
 }
 </script>
