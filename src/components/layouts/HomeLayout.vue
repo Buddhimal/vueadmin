@@ -1,9 +1,13 @@
 <template>
   <div>
     <div class="wrapper">
+      <!-- Content Wrapper. Contains page content -->
+
       <TopHeader/>
       <NavBar/>
-      <slot/>
+      <div class="content-wrapper">
+        <router-view></router-view>
+      </div>
       <Footer/>
     </div>
 

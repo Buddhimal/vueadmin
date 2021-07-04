@@ -1,7 +1,7 @@
 <template>
-  <HomeLayout>
+<!--  <HomeLayout>-->
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="">
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
@@ -91,17 +91,15 @@
       </section>
       <!-- /.content -->
     </div>
-  </HomeLayout>
+<!--  </HomeLayout>-->
 </template>
 
 <script>
 
-import HomeLayout from "@/components/layouts/HomeLayout";
 
 export default {
   name: "Home",
   components: {
-    HomeLayout
   }
 }
 </script>
