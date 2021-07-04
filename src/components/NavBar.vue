@@ -21,7 +21,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <!--region User-->
-          <div v-for="(client, index) in clients" v-bind:key="client.client_name_short">
+          <div v-for="(client, index) in this.$store.state.clients" v-bind:key="client.client_name_short">
             <li class="nav-item">
               <router-link :to="`/client/${index}/settings`">
                 <a class="nav-link">
@@ -76,7 +76,8 @@ export default {
         api_key: this.$store.state.api_key,
         ui_user_id: this.$store.state.ui_user_id,
       }).then((resp) => {
-        this.clients = resp.data.data;
+        this.$store.commit("setClients", resp.data.data);
+        // this.clients = resp.data.data;
       })
     }
   },
