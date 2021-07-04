@@ -1,0 +1,7 @@
+.main-sidebar, .main-sidebar::before {
+    width: 350px;
+}
+
+body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header{
+    margin-left: 350px;
+}
