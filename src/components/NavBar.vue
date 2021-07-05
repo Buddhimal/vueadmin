@@ -77,16 +77,14 @@ export default {
         ui_user_id: this.$store.state.ui_user_id,
       }).then((resp) => {
         this.$store.commit("setClients", resp.data.data);
-        // this.clients = resp.data.data;
       })
     }
   },
   mounted() {
     this.getClients();
     this.$root.$on('updateClient', () => {
-      // your code goes here
       this.getClients();
-    })
+    });
   }
 }
 </script>

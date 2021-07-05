@@ -39,11 +39,11 @@
             </li>
           </ul>
           <div class="card-footer">
-            <form action="#" method="post">
+            <form @submit.prevent="addOrg" action="">
               <div class="input-group">
                 <input type="text" name="message" placeholder="Type name ..." v-model="orgName" class="form-control">
                 <span class="input-group-append">
-                          <button v-on:click="addOrg" type="button" class="btn btn-warning">Add</button>
+                          <button type="submit" class="btn btn-warning">Add</button>
                 </span>
               </div>
             </form>
