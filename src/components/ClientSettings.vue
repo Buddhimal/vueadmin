@@ -23,12 +23,13 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">{{ client && this.$store.state.clients[this.$route.params.id].client_name_full }}</h3>
+          <h3 class="card-title">{{this.$store.state.clients[id].client_name_full }}</h3><br>
+          <h3 class="card-title">{{this.$store.state.count}}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
           <ul class="products-list product-list-in-card pl-2 pr-2">
-            <li class="item" v-for="org in this.$store.state.clients[this.$route.params.id].org_list" v-bind:key="org.organization_name_short">
+            <li class="item" v-for="org in this.$store.state.clients[id].org_list" v-bind:key="org.organization_name_short">
               <div class="product-info">
                 <a href="javascript:void(0)" class="product-title">{{ org.organization_name_full }}
                   <button v-on:click="removeOrg(org.organization_name_short)" class="btn btn-danger float-right">
@@ -71,6 +72,7 @@ export default {
       errorMsg: ""
     }
   },
+  props: ["id"],
   methods: {
     getClients() {
       this.isError = false;

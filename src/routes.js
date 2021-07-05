@@ -8,7 +8,7 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import HomeLayout from "@/components/layouts/HomeLayout";
 import ClientSettings from './components/ClientSettings.vue';
 
-import {store} from "@/store/store";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -46,6 +46,7 @@ export const router = new VueRouter({
                     path: "client/:id/settings",
                     name: "settings",
                     component: ClientSettings,
+                    props:true
                 },
             ],
             beforeEnter: (to, from, next) => {

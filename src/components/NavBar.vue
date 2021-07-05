@@ -76,15 +76,17 @@ export default {
         api_key: this.$store.state.api_key,
         ui_user_id: this.$store.state.ui_user_id,
       }).then((resp) => {
-        this.$store.commit("setClients", resp.data.data);
+        this.$store.dispatch("setClients",resp.data.data);
+        // this.$store.commit("setClients", resp.data.data);
       })
     }
   },
   mounted() {
+    this.$store.dispatch('increment');
     this.getClients();
-    this.$root.$on('updateClient', () => {
-      this.getClients();
-    });
+    // this.$root.$on('updateClient', () => {
+    //   this.getClients();
+    // });
   }
 }
 </script>
