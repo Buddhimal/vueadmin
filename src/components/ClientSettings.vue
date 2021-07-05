@@ -23,8 +23,7 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">{{this.$store.state.clients[id].client_name_full }}</h3><br>
-          <h3 class="card-title">{{this.$store.state.count}}</h3>
+          <h3 class="card-title">{{this.$store.state.clients[id].client_name_full }}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
@@ -74,16 +73,6 @@ export default {
   },
   props: ["id"],
   methods: {
-    getClients() {
-      this.isError = false;
-      Vue.axios.post(process.env.VUE_APP_API_BASE_URL + 'get_client_org_list_by_user', {
-        api_user_id: this.$store.state.api_user_id,
-        api_key: this.$store.state.api_key,
-        ui_user_id: this.$store.state.ui_user_id,
-      }).then((resp) => {
-        this.$store.commit("setClients", resp.data.data);
-      })
-    },
     removeOrg(name) {
       this.isError = false;
       Vue.axios.post(process.env.VUE_APP_API_BASE_URL + 'delete_org', {
@@ -94,7 +83,7 @@ export default {
         organization_name_short: name
       }).then((resp) => {
         if (resp.data.success) {
-          this.getClients();
+          this.$store.dispatch("setClients");
         }
       })
     },
@@ -109,7 +98,7 @@ export default {
           organization_name_full: this.orgName
         }).then((resp) => {
           if (resp.data.success) {
-            this.getClients();
+            this.$store.dispatch("setClients");
           } else {
             this.isError = true;
             this.errorMsg = resp.data.message.substring(resp.data.message.indexOf(":"));
@@ -120,7 +109,7 @@ export default {
     }
   },
   mounted() {
-    this.getClients();
+    // this.getClients();
     // this.$root.$emit('updateClient')
   }
 }

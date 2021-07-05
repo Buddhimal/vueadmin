@@ -8,7 +8,7 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import HomeLayout from "@/components/layouts/HomeLayout";
 import ClientSettings from './components/ClientSettings.vue';
 
-import store from "@/store";
+import store from "@/store/index";
 
 Vue.use(VueRouter);
 

@@ -66,27 +66,8 @@ Vue.use(VueAxios, axios);
 
 export default {
   name: "NavBar",
-  data() {
-    return {clients: undefined}
-  },
-  methods: {
-    getClients() {
-      Vue.axios.post(process.env.VUE_APP_API_BASE_URL+'get_client_org_list_by_user', {
-        api_user_id: this.$store.state.api_user_id,
-        api_key: this.$store.state.api_key,
-        ui_user_id: this.$store.state.ui_user_id,
-      }).then((resp) => {
-        this.$store.dispatch("setClients",resp.data.data);
-        // this.$store.commit("setClients", resp.data.data);
-      })
-    }
-  },
   mounted() {
-    this.$store.dispatch('increment');
-    this.getClients();
-    // this.$root.$on('updateClient', () => {
-    //   this.getClients();
-    // });
+    this.$store.dispatch("setClients");
   }
 }
 </script>

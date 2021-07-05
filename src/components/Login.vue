@@ -63,8 +63,8 @@ export default {
   methods: {
     login() {
       if (this.input.username == "a" && this.input.password == "a") {
-        this.$store.commit("setAuthenticated", true);
-        localStorage.setItem("testLogin", true);
+        // this.$store.commit("setAuthenticated", true);
+        this.$store.dispatch("setAuthenticated", true);
         this.$router.replace({name: "home"})
       } else{
         console.log("Username or Password is wrong");
