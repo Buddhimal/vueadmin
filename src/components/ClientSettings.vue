@@ -18,17 +18,18 @@
 
       <div v-if="isError" class="alert alert-danger alert-dismissible">
         <h5><i class="icon fas fa-ban"></i> Alert!</h5>
-        Error: {{ errorMsg }}
+        Error {{ errorMsg }}
       </div>
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">{{this.$store.state.clients[id].client_name_full }}</h3>
+          <h3 class="card-title">{{ this.$store.state.clients[id].client_name_full }}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
           <ul class="products-list product-list-in-card pl-2 pr-2">
-            <li class="item" v-for="org in this.$store.state.clients[id].org_list" v-bind:key="org.organization_name_short">
+            <li class="item" v-for="org in this.$store.state.clients[id].org_list"
+                v-bind:key="org.organization_name_short">
               <div class="product-info">
                 <a href="javascript:void(0)" class="product-title">{{ org.organization_name_full }}
                   <button v-on:click="removeOrg(org.organization_name_short)" class="btn btn-danger float-right">
@@ -52,14 +53,10 @@
       </div>
     </div>
 
-
   </div>
 </template>
 
 <script>
-
-import Vue from "vue";
-
 
 export default {
   name: "ClientSettings",
@@ -73,43 +70,28 @@ export default {
   },
   props: ["id"],
   methods: {
-    removeOrg(name) {
+    async removeOrg(name) {
       this.isError = false;
-      Vue.axios.post(process.env.VUE_APP_API_BASE_URL + 'delete_org', {
-        api_user_id: this.$store.state.api_user_id,
-        api_key: this.$store.state.api_key,
-        ui_user_id: this.$store.state.ui_user_id,
-        client_name_short: this.$store.state.client_name_short,
-        organization_name_short: name
-      }).then((resp) => {
-        if (resp.data.success) {
-          this.$store.dispatch("setClients");
-        }
-      })
+      const resp = await this.$store.dispatch("removeOrganization", name);
+      if (resp.data.success) {
+        await this.$store.dispatch("setClients");
+      }
     },
-    addOrg() {
+    async addOrg() {
       this.isError = false;
       if (this.orgName != "") {
-        Vue.axios.post(process.env.VUE_APP_API_BASE_URL + 'add_org', {
-          api_user_id: this.$store.state.api_user_id,
-          api_key: this.$store.state.api_key,
-          ui_user_id: this.$store.state.ui_user_id,
-          client_name_short: this.$store.state.client_name_short,
-          organization_name_full: this.orgName
-        }).then((resp) => {
-          if (resp.data.success) {
-            this.$store.dispatch("setClients");
-          } else {
-            this.isError = true;
-            this.errorMsg = resp.data.message.substring(resp.data.message.indexOf(":"));
-          }
-        })
+        const resp = await this.$store.dispatch("addOrganization", this.orgName);
+        if (resp.data.success) {
+          await this.$store.dispatch("setClients");
+        } else {
+          this.isError = true;
+          this.errorMsg = resp.data.message.substring(resp.data.message.indexOf(":"));
+        }
       }
 
     }
   },
   mounted() {
-    // this.getClients();
     // this.$root.$emit('updateClient')
   }
 }
