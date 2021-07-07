@@ -7,6 +7,7 @@ import PageNotFound from './components/PageNotFound.vue'
 import AuthLayout from "@/components/layouts/AuthLayout";
 import HomeLayout from "@/components/layouts/HomeLayout";
 import ClientSettings from './components/ClientSettings.vue';
+import OrganizationSettings from './components/OrganizationSettings.vue';
 
 import store from "@/store/index";
 
@@ -43,9 +44,15 @@ export const router = new VueRouter({
                     component: Home,
                 },
                 {
-                    path: "client/:id/settings",
+                    path: "client/:id",
                     name: "settings",
                     component: ClientSettings,
+                    props:true
+                },
+                {
+                    path: "client/:clientId/organization/:orgId",
+                    name: "organization",
+                    component: OrganizationSettings,
                     props:true
                 },
             ],

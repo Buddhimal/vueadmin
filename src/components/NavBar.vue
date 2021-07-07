@@ -23,7 +23,7 @@
           <!--region User-->
           <div v-for="(client, index) in this.$store.state.clients" v-bind:key="client.client_name_short">
             <li class="nav-item">
-              <router-link :to="`/client/${index}/settings`">
+              <router-link :to="`/client/${index}`">
                 <a class="nav-link">
                   <i class="nav-icon fas fa-user fa-2x" style="margin-right: 20px"></i>
                   {{ client.client_name_full }}
