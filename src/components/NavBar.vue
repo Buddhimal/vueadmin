@@ -32,15 +32,17 @@
 
             </li>
             <!--region Organization-->
-            <div v-for="org in client.org_list"
+            <div v-for="(org, orgIndex) in client.org_list"
                  v-bind:key="org.organization_name_short">
               <a class="d-block" style="margin-left: 30px; padding: 10px">
                 {{ org.organization_name_full }}
               </a>
               <div style="padding: 10px 30px; display: flex; justify-content: space-around">
-                <a>
-                  <i class="fa fa-cog fa-2x"></i>
-                </a>
+                <router-link :to="`/client/${index}/organization/${orgIndex}`">
+                  <a>
+                    <i class="fa fa-cog fa-2x"></i>
+                  </a>
+                </router-link>
                 <a>
                   <i class="fa fa-file fa-2x"></i>
                 </a></div>

@@ -31,13 +31,14 @@
             <li class="item" v-for="(org, index) in this.$store.state.clients[id].org_list"
                 v-bind:key="org.organization_name_short">
               <div class="product-info">
+
                 <router-link :to="`/client/${id}/organization/${index}`">
                   <a href="javascript:void(0)" class="product-title">{{ org.organization_name_full }}
-                    <button v-on:click="removeOrg(org.organization_name_short)" class="btn btn-danger float-right">
-                      Remove
-                    </button>
                   </a>
                 </router-link>
+                <button v-on:click="removeOrg(org.organization_name_short)" class="btn btn-danger float-right">
+                  Remove
+                </button>
               </div>
             </li>
           </ul>

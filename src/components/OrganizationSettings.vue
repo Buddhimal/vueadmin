@@ -194,7 +194,27 @@ export default {
     }
   },
   props: ["clientId", "orgId"],
+  watch: {
+    '$route.params': {
+      handler(newValue) {
+        console.log(newValue);
+        this.initValues();
+        this.getIncludes();
+      },
+      immediate: true,
+    }
+  },
   methods: {
+    initValues() {
+      this.newIncludeDomain = "";
+      this.newExcludeDomain = "";
+      this.newIncludeIp = "";
+      this.newExcludeIp = "";
+      this.isError = false;
+      this.errorMsg = "";
+      this.include = [];
+      this.exclud = [];
+    },
     getIncludes() {
       Vue.axios.post(process.env.VUE_APP_API_BASE_URL + 'get_scope_data_by_client_org', {
         api_user_id: this.$store.state.api_user_id,
